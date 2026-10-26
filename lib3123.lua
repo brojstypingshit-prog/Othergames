@@ -211,6 +211,15 @@ end
 
 Library.AssetManager = AssetManager
 
+local AssetOverrides = {
+    ["rbxassetid://139785960036434"] = "rbxassetid://139785960036434",
+    ["rbxassetid://4155801252"] = "rbxassetid://4155801252",
+    ["rbxassetid://85895852329707"] = "rbxassetid://85895852329707",
+    ["rbxassetid://18886652611"] = "rbxassetid://18886652611",
+    ["rbxassetid://87519554692663"] = "rbxassetid://87519554692663",
+    ["rbxassetid://6895079853"] = "rbxassetid://6895079853"
+}
+
 if RunService:IsStudio() then
     if UserInputService.TouchEnabled and not UserInputService.MouseEnabled then
         Library.IsMobile = true
@@ -1284,13 +1293,6 @@ function Library:GetBetterColor(Color: Color3, Add: number): Color3
 end
 
 function Library:PlayToggleSound()
-    local id = AssetManager.GetAsset("Toggle") or AssetOverrides["rbxassetid://6895079853"] or "rbxassetid://6895079853"
-    New("Sound", {
-        SoundId = id,
-        Volume = 1,
-        PlayOnRemove = true,
-        Parent = SoundService,
-    }):Destroy()
 end
 
 function Library:GetDarkerColor(Color: Color3): Color3
