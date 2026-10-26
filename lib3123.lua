@@ -211,15 +211,6 @@ end
 
 Library.AssetManager = AssetManager
 
-local AssetOverrides = {
-    ["rbxassetid://139785960036434"] = "rbxassetid://139785960036434",
-    ["rbxassetid://4155801252"] = "rbxassetid://4155801252",
-    ["rbxassetid://85895852329707"] = "rbxassetid://85895852329707",
-    ["rbxassetid://18886652611"] = "rbxassetid://18886652611",
-    ["rbxassetid://87519554692663"] = "rbxassetid://87519554692663",
-    ["rbxassetid://6895079853"] = "rbxassetid://6895079853"
-}
-
 if RunService:IsStudio() then
     if UserInputService.TouchEnabled and not UserInputService.MouseEnabled then
         Library.IsMobile = true
