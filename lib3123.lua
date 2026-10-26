@@ -1784,7 +1784,13 @@ local renderConn = RunService.RenderStepped:Connect(function()
     cursorText.Position = Vector2.new(x, y + 32)
     cursorText.Visible = true
 end)
+function Library:Crosshair(enabled: boolean)
+    cursorVisible = enabled and true or false
+end
 
+function Library:SetCrosshairEnabled(state: boolean)
+    cursorVisible = state and true or false
+end
 table.insert(_G.HollyScriptX_CursorConnections, renderConn)
 
 --// Context Menu \\--
