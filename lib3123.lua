@@ -186,38 +186,6 @@ local Library = {
     DPIRegistry = {},
 
     MobileLockButton = nil,
-    AssetManager = nil,
-}
-
-local AssetManager = {
-    PreloadAssets = {
-        "TransparencyTexture",
-        "SaturationMap",
-        "Icon",
-        "Normal",
-        "Error",
-        "Toggle"
-    },
-    Cache = {}
-}
-
-function AssetManager.GetAsset(AssetName: string)
-    return nil
-end
-
-function AssetManager.DownloadAsset(AssetName: string)
-    -- no-op
-end
-
-Library.AssetManager = AssetManager
-
-local AssetOverrides = {
-    ["rbxassetid://139785960036434"] = "rbxassetid://139785960036434",
-    ["rbxassetid://4155801252"] = "rbxassetid://4155801252",
-    ["rbxassetid://85895852329707"] = "rbxassetid://85895852329707",
-    ["rbxassetid://18886652611"] = "rbxassetid://18886652611",
-    ["rbxassetid://87519554692663"] = "rbxassetid://87519554692663",
-    ["rbxassetid://6895079853"] = "rbxassetid://6895079853"
 }
 
 if RunService:IsStudio() then
@@ -1292,8 +1260,6 @@ function Library:GetBetterColor(Color: Color3, Add: number): Color3
     )
 end
 
-function Library:PlayToggleSound()
-end
 
 function Library:GetDarkerColor(Color: Color3): Color3
     local H, S, V = Color:ToHSV()
@@ -2340,7 +2306,6 @@ do
             end
 
             Holder.MouseButton1Click:Connect(function()
-                Library:PlayToggleSound()
                 if KeybindsToggle.Normal then
                     return
                 end
@@ -2396,7 +2361,6 @@ do
             end
 
             Button.MouseButton1Click:Connect(function()
-                Library:PlayToggleSound()
                 ModeButton:Select()
             end)
 
@@ -2560,7 +2524,6 @@ do
         end
 
         Picker.MouseButton1Click:Connect(function()
-            Library:PlayToggleSound()
             if Picking then
                 return
             end
@@ -2765,7 +2728,7 @@ do
 
         local HolderTransparency = New("ImageLabel", {
             Name = "SoundGroup",
-            Image = AssetManager.GetAsset("TransparencyTexture"),
+            Image = nil,
             ImageTransparency = (1 - ColorPicker.Transparency),
             ScaleType = Enum.ScaleType.Tile,
             Size = UDim2.fromScale(1, 1),
@@ -2820,7 +2783,7 @@ do
         local SatVipMap = New("ImageButton", {
             Name = "Decal",
             BackgroundColor3 = ColorPicker.Value,
-            Image = AssetManager.GetAsset("SaturationMap"),
+            Image = nil,
             Size = UDim2.fromOffset(200, 200),
             Parent = ColorHolder,
         })
@@ -2869,7 +2832,7 @@ do
         if Info.Transparency then
             TransparencySelector = New("ImageButton", {
                 Name = "Texture",
-                Image = AssetManager.GetAsset("TransparencyTexture"),
+                Image = nil,
                 ScaleType = Enum.ScaleType.Tile,
                 Size = UDim2.fromOffset(16, 200),
                 TileSize = UDim2.fromOffset(8, 8),
@@ -2956,7 +2919,6 @@ do
                 })
 
                 Button.MouseButton1Click:Connect(function()
-                    Library:PlayToggleSound()
                     Library:SafeCallback(Func)
                     ContextMenu:Close()
                 end)
@@ -3046,7 +3008,6 @@ do
         end
 
         Holder.MouseButton1Click:Connect(function()
-            Library:PlayToggleSound()
             ColorMenu:Toggle()
         end)
         Holder.MouseButton2Click:Connect(ContextMenu.Toggle)
@@ -3408,7 +3369,6 @@ do
             end)
 
             Button.Base.MouseButton1Click:Connect(function()
-                Library:PlayToggleSound()
                 if Button.Disabled or Button.Locked then
                     return
                 end
@@ -3416,7 +3376,7 @@ do
                 if Button.DoubleClick then
                     Button.Locked = true
 
-                    Button.Base.Text = "你确定吗"
+                    Button.Base.Text = "Are you sure?"
                     Button.Base.TextColor3 = Library.Scheme.AccentColor
                     Library.Registry[Button.Base].TextColor3 = "AccentColor"
 
@@ -3756,7 +3716,6 @@ do
         end
 
         Button.MouseButton1Click:Connect(function()
-            Library:PlayToggleSound()
             if Toggle.Disabled then
                 return
             end
@@ -3979,7 +3938,6 @@ do
         end
 
         Button.MouseButton1Click:Connect(function()
-            Library:PlayToggleSound()
             if Toggle.Disabled then
                 return
             end
@@ -4522,7 +4480,7 @@ do
         if Info.Searchable then
             SearchBox = New("TextBox", {
                 BackgroundTransparency = 1,
-                PlaceholderText = "搜索...",
+                PlaceholderText = "Search...",
                 Position = UDim2.fromOffset(-8, 0),
                 Size = UDim2.new(1, -12, 1, 0),
                 TextSize = 14,
@@ -4689,7 +4647,6 @@ do
 
                 if not IsDisabled then
                     Button.MouseButton1Click:Connect(function()
-                        Library:PlayToggleSound()
                         local Try = not Selected
 
                         if not (Dropdown:GetActiveValues() == 1 and not Try and not Info.AllowNull) then
@@ -4820,7 +4777,6 @@ do
         end
 
         Display.MouseButton1Click:Connect(function()
-            Library:PlayToggleSound()
             if Dropdown.Disabled then
                 return
             end
@@ -6434,7 +6390,7 @@ function Library:CreateWindow(WindowInfo)
 
         SearchBox = New("TextBox", {
             BackgroundColor3 = "MainColor",
-            PlaceholderText = "搜索",
+            PlaceholderText = "Search",
             Size = WindowInfo.SearchbarSize,
             TextScaled = true,
             Visible = not (WindowInfo.DisableSearch or false),
@@ -7586,7 +7542,7 @@ function Library:CreateWindow(WindowInfo)
                 BackgroundColor3 = "MainColor",
                 BorderColor3 = "OutlineColor",
                 BorderSizePixel = 1,
-                PlaceholderText = "密钥",
+                PlaceholderText = "Key",
                 Size = UDim2.new(1, -71, 1, 0),
                 TextSize = 14,
                 TextXAlignment = Enum.TextXAlignment.Left,
@@ -7605,7 +7561,7 @@ function Library:CreateWindow(WindowInfo)
                 BorderSizePixel = 1,
                 Position = UDim2.fromScale(1, 0),
                 Size = UDim2.new(0, 63, 1, 0),
-                Text = "执行",
+                Text = "Execute",
                 TextSize = 14,
                 Parent = Holder,
             })
